@@ -1,10 +1,38 @@
 import { Adapter } from "next-auth/adapters";
+import { NextApiRequest, NextApiResponse } from "next";
+import { parseCookies, destroyCookie } from 'nookies'
 import { prisma } from "../prisma";
 
-export default function PrismaAdapter(): Adapter {
+export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse): Adapter {
   return {
     async createUser(user) {
-      return;
+      const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req })
+
+      if (!userIdOnCookies) throw new Error('User ID not found on cookies')
+
+      const prismaUser = await prisma.user.update({
+        where: {
+          id: userIdOnCookies
+        },
+        data: {
+          name: user.name,
+          email: user.email,
+          avatar_url: user.avatar_url
+        }
+      })
+
+      destroyCookie({ res }, '@ignitecall:userId', {
+        path: '/'
+      })
+
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email!,
+        username: user.username,
+        avatar_url: user.avatar_url!,
+        emailVerified: null,
+      }
     },
 
     async getUser(id) {
@@ -131,7 +159,7 @@ export default function PrismaAdapter(): Adapter {
         session: {
           userId: session.user_id,
           expires: session.expires,
-          session_token: session.session_token
+          sessionToken: session.session_token
         },
         user: {
           id: user.id,
@@ -144,17 +172,26 @@ export default function PrismaAdapter(): Adapter {
       }
     },
 
-    async updateSession({ sessionToken }) {
-      return;
+    async updateSession({ sessionToken, userId, expires }) {
+      const newSession = await prisma.session.update({
+        where: {
+          session_token: sessionToken
+        },
+        data: {
+          expires,
+          user_id: userId,
+        }
+      })
+
+      return {
+        sessionToken: newSession.session_token,
+        userId: newSession.user_id,
+        expires: newSession.expires,
+      };
     },
-    async deleteSession(sessionToken) {
-      return;
-    },
-    async createVerificationToken({ identifier, expires, token }) {
-      return;
-    },
-    async useVerificationToken({ identifier, token }) {
-      return;
-    },
+
+    async deleteSession() {
+
+    }
   };
 }

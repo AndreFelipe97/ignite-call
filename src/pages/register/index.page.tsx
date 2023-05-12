@@ -7,7 +7,7 @@ import { Container, Form, FormError, Header } from './styles'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { api } from '@/lib/axios'
-import { AxiosError } from 'axios'
+import { AxiosError } from 'axios';
 
 const registerFormSchema = z.object({
   username: z
