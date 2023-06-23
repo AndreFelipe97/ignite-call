@@ -5,7 +5,7 @@ import { Container, Header } from "../styles";
 import { AuthError, ConnectBox, ConnectItem } from "./styles";
 import { useRouter } from "next/router";
 
-export default function Register() {
+export default function ConnectCalendar() {
   const session = useSession();
   const router = useRouter();
 
@@ -16,6 +16,9 @@ export default function Register() {
     await signIn("google");
   }
 
+  async function handleNavigateToNextStep() {
+    await router.push("/register/time-intervals");
+  }
   return (
     <Container>
       <Header>
@@ -50,7 +53,11 @@ export default function Register() {
             permissões de acesso ao Google Calendar.
           </AuthError>
         )}
-        <Button type="submit" disabled={!isSignedIn}>
+        <Button
+          onClick={handleNavigateToNextStep}
+          type="submit"
+          disabled={!isSignedIn}
+        >
           Próximo passo <ArrowRight />
         </Button>
       </ConnectBox>

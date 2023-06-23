@@ -1,9 +1,12 @@
 import { Adapter } from "next-auth/adapters";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse, NextPageContext } from "next";
 import { parseCookies, destroyCookie } from 'nookies'
 import { prisma } from "../prisma";
 
-export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse): Adapter {
+export default function PrismaAdapter(
+  req: NextApiRequest | NextPageContext['req'],
+  res: NextApiResponse | NextPageContext['res']
+): Adapter {
   return {
     async createUser(user) {
       const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req })
@@ -26,21 +29,23 @@ export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse)
       })
 
       return {
-        id: user.id,
-        name: user.name,
-        email: user.email!,
-        username: user.username,
-        avatar_url: user.avatar_url!,
+        id: prismaUser.id,
+        name: prismaUser.name,
+        email: prismaUser.email!,
+        username: prismaUser.username,
+        avatar_url: prismaUser.avatar_url!,
         emailVerified: null,
       }
     },
 
     async getUser(id) {
-      const user = await prisma.user.findUniqueOrThrow({
+      const user = await prisma.user.findUnique({
         where: {
           id,
         },
       });
+
+      if (!user) return null
 
       return {
         id: user.id,
@@ -53,11 +58,13 @@ export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse)
     },
 
     async getUserByEmail(email) {
-      const user = await prisma.user.findUniqueOrThrow({
+      const user = await prisma.user.findUnique({
         where: {
           email,
         },
       });
+
+      if (!user) return null
 
       return {
         id: user.id,
@@ -70,7 +77,7 @@ export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse)
     },
 
     async getUserByAccount({ providerAccountId, provider }) {
-      const { user } = await prisma.account.findUniqueOrThrow({
+      const account = await prisma.account.findUnique({
         where: {
           provider_provider_account_id: {provider, provider_account_id: providerAccountId}
         },
@@ -78,6 +85,10 @@ export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse)
           user: true,
         }
       })
+
+      if (!account) return null
+
+      const { user } = account
 
       return {
         id: user.id,
@@ -146,7 +157,7 @@ export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse)
     },
 
     async getSessionAndUser(sessionToken) {
-      const {user, ...session} = await prisma.session.findUniqueOrThrow({
+      const prismaSession = await prisma.session.findUnique({
         where: {
           session_token: sessionToken,
         },
@@ -154,6 +165,10 @@ export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse)
           user: true,
         },
       });
+
+      if (!prismaSession) return null
+
+      const {user, ...session} = prismaSession
 
       return {
         session: {
@@ -190,8 +205,12 @@ export default function PrismaAdapter(req: NextApiRequest, res: NextApiResponse)
       };
     },
 
-    async deleteSession() {
-
+    async deleteSession(sessionToken) {
+      await prisma.session.delete({
+        where: {
+          session_token: sessionToken,
+        }
+      })
     }
   };
 }
