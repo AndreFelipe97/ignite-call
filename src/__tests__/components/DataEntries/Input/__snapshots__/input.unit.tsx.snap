@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> should render base input 1`] = `
+<input
+  class="c-grKefI"
+  placeholder=""
+/>
+`;
+
+exports[`<Input /> should render correctly with params 1`] = `
+<input
+  class="c-grKefI"
+  placeholder="test-input"
+/>
+`;

@@ -9,8 +9,9 @@
     "lint": "next lint",
     "prisma": "prisma",
     "test": "jest",
-    "test:watch": "yarn test -- --watch",
-    "test:coverage": "jest --coverage"
+    "test:silent": "yarn test -- --silent",
+    "test:watch": "yarn test:silent -- --watchAll",
+    "test:coverage": "yarn test:watch -- --coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.0.1",

@@ -19,7 +19,7 @@ const customJestConfig = {
     "<rootDir>/**/*.{tsx, ts}",
     "!<rootDir>/**/*.{spec, test}.{tsx, ts}"
   ],
-  coverageReporters: ['clover', 'json', 'lcov', ['text', {skipFull: true}]],
+  coverageReporters: ['clover', 'json', 'lcov'],
 }
 
 module.exports = createJestConfig(customJestConfig)

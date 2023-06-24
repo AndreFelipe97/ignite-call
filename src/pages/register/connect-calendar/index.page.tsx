@@ -4,6 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { Container, Header } from "../styles";
 import { AuthError, ConnectBox, ConnectItem } from "./styles";
 import { useRouter } from "next/router";
+import { SubmitButton } from "@/components/Buttons/SubmitButton";
 
 export default function ConnectCalendar() {
   const session = useSession();
@@ -53,13 +54,12 @@ export default function ConnectCalendar() {
             permissões de acesso ao Google Calendar.
           </AuthError>
         )}
-        <Button
+        <SubmitButton
+          isDisabled={!isSignedIn}
+          label="Próximo passo"
+          icon={<ArrowRight />}
           onClick={handleNavigateToNextStep}
-          type="submit"
-          disabled={!isSignedIn}
-        >
-          Próximo passo <ArrowRight />
-        </Button>
+        />
       </ConnectBox>
     </Container>
   );

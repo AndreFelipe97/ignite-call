@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SubmitButton /> should render correctly and active 1`] = `
+<button
+  class="c-jZXQKc c-jZXQKc-hazApa-variant-primary c-jZXQKc-eDoJcS-size-md"
+  type="submit"
+>
+  Test submit button
+   
+</button>
+`;
+
+exports[`<SubmitButton /> should render correctly and disable 1`] = `
+<button
+  class="c-jZXQKc c-jZXQKc-hazApa-variant-primary c-jZXQKc-eDoJcS-size-md"
+  disabled=""
+  type="submit"
+>
+  Test submit button
+   
+</button>
+`;
+
+exports[`<SubmitButton /> should render correctly and with a click function 1`] = `
+<button
+  class="c-jZXQKc c-jZXQKc-hazApa-variant-primary c-jZXQKc-eDoJcS-size-md"
+  type="submit"
+>
+  Test submit button
+   
+</button>
+`;
+
+exports[`<SubmitButton /> should render correctly and with a icon 1`] = `
+<span>
+  icon
+</span>
+`;

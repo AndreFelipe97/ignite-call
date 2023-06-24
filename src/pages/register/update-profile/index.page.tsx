@@ -17,6 +17,7 @@ import { getServerSession } from "next-auth";
 import { buildNextAuthOptions } from "@/pages/api/auth/[...nextauth].api";
 import { api } from "@/lib/axios";
 import { useRouter } from "next/router";
+import { SubmitButton } from "@/components/Buttons/SubmitButton";
 
 const updateProfileFormSchema = z.object({
   bio: z.string(),
@@ -69,9 +70,7 @@ export default function UpdateProfile() {
             Fale um pouco sobre você. Isto será exibido em sua página pessoal.
           </FormAnnotation>
         </label>
-        <Button type="submit" disabled={isSubmitting}>
-          Finalizar
-        </Button>
+        <SubmitButton isDisabled={isSubmitting} label="Finalizar" />
       </ProfileBox>
     </Container>
   );

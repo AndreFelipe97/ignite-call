@@ -22,6 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { convertTimeStringToMinutes } from "@/utils/convert-time-string-to-minutes";
 import { api } from "@/lib/axios";
 import { useRouter } from "next/router";
+import { SubmitButton } from "@/components/Buttons/SubmitButton";
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -157,9 +158,11 @@ export default function TimeIntervals() {
           <FormError size="sm">{errors.intervals.message}</FormError>
         )}
 
-        <Button type="submit" disabled={isSubmitting}>
-          Próximo passo <ArrowRight />
-        </Button>
+        <SubmitButton
+          isDisabled={isSubmitting}
+          label="Próximo passo"
+          icon={<ArrowRight />}
+        />
       </IntervalBox>
     </Container>
   );
