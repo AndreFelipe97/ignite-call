@@ -1,5 +1,4 @@
 import { TextInput } from "@ignite-ui/react";
-import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface InputProps {
   size?: "sm" | "md";

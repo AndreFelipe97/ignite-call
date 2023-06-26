@@ -1,11 +1,4 @@
-import {
-  Button,
-  Checkbox,
-  Heading,
-  MultiStep,
-  Text,
-  TextInput,
-} from "@ignite-ui/react";
+import { Checkbox, Heading, MultiStep, Text } from "@ignite-ui/react";
 import { Container, FormError, Header } from "../styles";
 import {
   IntervalBox,
@@ -23,6 +16,7 @@ import { convertTimeStringToMinutes } from "@/utils/convert-time-string-to-minut
 import { api } from "@/lib/axios";
 import { useRouter } from "next/router";
 import { SubmitButton } from "@/components/Buttons/SubmitButton";
+import { InputTime } from "@/components/DataEntries/InputTime";
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -135,19 +129,15 @@ export default function TimeIntervals() {
                 <Text>{weekDays[field.weekDay]}</Text>
               </IntervalDay>
               <IntervalInputs>
-                <TextInput
-                  size="sm"
-                  type="time"
-                  step={60}
-                  disabled={!intervals[index].enabled}
-                  {...register(`intervals.${index}.startTime`)}
+                <InputTime
+                  name={`intervals.${index}.startTime`}
+                  isDisabled={!intervals[index].enabled}
+                  register={register}
                 />
-                <TextInput
-                  size="sm"
-                  type="time"
-                  step={60}
-                  disabled={!intervals[index].enabled}
-                  {...register(`intervals.${index}.endTime`)}
+                <InputTime
+                  name={`intervals.${index}.endTime`}
+                  isDisabled={!intervals[index].enabled}
+                  register={register}
                 />
               </IntervalInputs>
             </IntervalItem>

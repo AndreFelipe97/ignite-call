@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InputTime /> should render correctly when is disabled 1`] = `
+<input
+  class="c-grKefI"
+  data-testid="test-input-time"
+  disabled=""
+  step="60"
+  type="time"
+/>
+`;
+
+exports[`<InputTime /> should render correctly when is enabled 1`] = `
+<input
+  class="c-grKefI"
+  data-testid="test-input-time"
+  step="60"
+  type="time"
+/>
+`;

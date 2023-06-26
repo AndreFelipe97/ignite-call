@@ -1,4 +1,4 @@
-import { Button, Heading, MultiStep, Text, TextInput } from "@ignite-ui/react";
+import { Button, Heading, MultiStep, Text } from "@ignite-ui/react";
 import { ArrowRight, Check } from "phosphor-react";
 import { signIn, useSession } from "next-auth/react";
 import { Container, Header } from "../styles";

@@ -16,8 +16,8 @@ const customJestConfig = {
   },
   collectCoverage: true,
   collectCoverageFrom: [
-    "<rootDir>/**/*.{tsx, ts}",
-    "!<rootDir>/**/*.{spec, test}.{tsx, ts}"
+    "<rootDir>/src/**/*.{tsx, ts}",
+    "!<rootDir>/src/**/*.{spec, test}.{tsx, ts}"
   ],
   coverageReporters: ['clover', 'json', 'lcov'],
 }

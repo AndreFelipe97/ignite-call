@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> should render correctly home page 1`] = `
+<h1
+  class="c-btBDqU c-btBDqU-idUsPu-size-4xl"
+>
+  Agendamento descomplicado
+</h1>
+`;
+
+exports[`<Home /> should render correctly home page 2`] = `
+<p
+  class="c-kQRPbk c-kQRPbk-iPGoSV-size-xl"
+>
+  Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre
+</p>
+`;

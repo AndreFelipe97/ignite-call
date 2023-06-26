@@ -1,4 +1,4 @@
-import { Button, Heading, MultiStep, Text, TextInput } from "@ignite-ui/react";
+import { Heading, MultiStep, Text } from "@ignite-ui/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { api } from "@/lib/axios";
 import { AxiosError } from "axios";
 import { SubmitButton } from "@/components/Buttons/SubmitButton";
+import { Input } from "@/components/DataEntries/Input";
 
 const registerFormSchema = z.object({
   username: z
@@ -76,10 +77,12 @@ export default function Register() {
       <Form as="form" onSubmit={handleSubmit(handleRegister)}>
         <label>
           <Text size="sm">Nome de usuário</Text>
-          <TextInput
+          <Input
+            size="sm"
             prefix="ignite.com/"
-            placeholder="seu-usuario"
-            {...register("username")}
+            placeholder="seu-usário"
+            name="username"
+            register={register}
           />
           {errors.username && (
             <FormError size="sm">{errors.username.message}</FormError>
@@ -87,7 +90,12 @@ export default function Register() {
         </label>
         <label>
           <Text size="sm">Nome completo</Text>
-          <TextInput placeholder="Seu nome" {...register("name")} />
+          <Input
+            size="sm"
+            placeholder="Seu nome"
+            name="name"
+            register={register}
+          />
           {errors.name && (
             <FormError size="sm">{errors.name.message}</FormError>
           )}

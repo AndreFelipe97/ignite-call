@@ -1,9 +1,8 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Input } from "@/components/DataEntries/Input";
+import { register } from "@/__factories__/register";
 
 describe("<Input />", () => {
-  const register = jest.fn();
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
