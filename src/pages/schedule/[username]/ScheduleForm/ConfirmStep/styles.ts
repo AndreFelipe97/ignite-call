@@ -7,10 +7,14 @@ export const ConfirmForm = styled(Box, {
   flexDirection: 'column',
   gap: '$4',
 
-  labe: {
+  label: {
     display: 'flex',
     flexDirection: 'column',
     gap: '$2',
+
+    textarea: {
+      width: "100%",
+    }
   }
 });
 
